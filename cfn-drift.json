@@ -1,0 +1,38 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "S3Bucket": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "yor_trace",
+            "Value": "4b791fea-50ff-40cc-b98c-cf2e6e80682f"
+          }
+        ],
+        "AccessControl": "Private",
+        "WebsiteConfiguration": {
+          "IndexDocument": "index.html",
+          "ErrorDocument": "error.html"
+        }
+      },
+      "DeletionPolicy": "Retain"
+    }
+  },
+  "Outputs": {
+    "S3BucketSecureURL": {
+      "Value": {
+        "Fn::Join": [
+          "",
+          [
+            "https://",
+            {
+              "Fn::GetAtt": ["S3Bucket", "DomainName"]
+            }
+          ]
+        ]
+      },
+      "Description": "Name of S3 bucket to hold website content"
+    }
+  }
+}
